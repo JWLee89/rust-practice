@@ -1,37 +1,31 @@
-use std::time;
+mod ownership;
+
+fn print_name(name: &str, salary: i32) {
+    println!("My name is: {name}");
+}
+
+fn multiply(num1: i32, num2: i32) -> i32 {
+    num1 * num2
+}
 
 fn main() {
     // "!" is a macro, 
     // which is used to write other code
     // AKA meta-programming.
     println!("Hello, world!");
+    let mut vec_num = vec![1, 2, 123,123_123, 12312, 1_209_523,1];
+    vec_num.push(100);
 
-    // By default, variables are immutable
-    // To make it mutable, we need to add "mut" as a prefix
-    let mut data = 10;
-    println!("{}", data);
-    
-    let n1 = 32;
-    let n2 = 32.5;
-    data = n1 + n2 as i32;
-    println!("n3 = {data}");
-    
-    let some_string = "10213123";
-    let mut growable_string = String::from("this string will grow");
-    let tuple_element = (4000, "yee");
-    let (salary, salary_value) = tuple_element;
-    println!("salary: {salary}");
+    vec_num.remove(1);
+    println!("yee: {:?}", vec_num.contains(&2));
+    print_name("hello yee", 100);
+    println!("yee: {}", multiply(2, 5));
 
-    let number_array = [1, 2, 3, 4, 5];
-    println!("Number array: {:?}", number_array);
+    // let mut m = String::new();
+    // std::io::stdin()
+    //     .read_line(& mut m)
+    //     .expect("failed to read results");
 
-    let mut array_with_same_elements = [0; 10];
-    // Mutable
-    array_with_same_elements[0] = 1;
-    println!("array with same element: {:?}", array_with_same_elements.len());
-
-
-    let subset_array = [0, 1, 2, 3, 4];
-    let cow = &subset_array[0..=2];
+    ownership::ownership();
     
 }
