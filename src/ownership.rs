@@ -13,3 +13,8 @@ pub(crate) fn ownership() {
     let s2 = s1.clone();
     println!("s1: {s1}, s2: {s2}");
 }
+
+pub(crate) fn stack_fn(mut num: i32) {
+    num = 567;
+    println!("num: {num}")
+}
