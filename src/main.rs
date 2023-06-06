@@ -43,4 +43,12 @@ fn main() {
     let ref1 = &mut vec1;
     ref1.push(4);
     println!("vec1: {:?}", vec1);
+
+    // let s1 = String::from("yeeee");
+    // // s2 now has the pointer to "yeeee" in the heap. s1 is dropped from the stack.
+    // let s2 = s1;
+    // // This will raise an exception
+    // println!("s1: {s1}")
+
 }
+
