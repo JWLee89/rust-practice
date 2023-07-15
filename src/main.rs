@@ -35,6 +35,12 @@ struct Rectangle {
     width: u32,
     height: u32
 }
+// Add methods
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
 
 
 fn main() {
@@ -56,9 +62,21 @@ fn main() {
     let rect = Rectangle {width: 10, height: 20};
     let area = calculate_area(&rect);
     println!("Area: {area}");
-    println!("Rectangle: {:?}", rect);
 
+    // Print using debug mode
+    println!("Rectangle: {:?}", rect);
+    // Make it even more readable
+    println!("Rectangle: {:#?}", rect);
 
    // println!("Username: {user.username}, password: {user.password}");
-
+   // We can also debug directly
+   let scale = 3;
+   let debuggable_rectangle = Rectangle {
+        // dbg! does not take ownership over the input
+        width: dbg!(30 * scale),
+        height: 50,
+   };
+   dbg!(&debuggable_rectangle);
+   println!("area: {}", debuggable_rectangle.area());
+   
 }
