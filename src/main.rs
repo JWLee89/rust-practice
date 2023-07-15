@@ -1,54 +1,64 @@
-mod ownership;
-mod variable_scope;
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
 
-fn print_name(name: &str, salary: i32) {
-    println!("My name is: {name}");
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
 }
 
-fn multiply(num1: i32, num2: i32) -> i32 {
-    num1 * num2
+struct User {
+    active: bool,
+    username: String,
+    password: String,
+    sign_in_count: u64,
 }
+
+fn build_user(username: String, password: String) -> User {
+    User {
+        active: true,
+        username,
+        password,
+        sign_in_count: 0
+    }
+}
+
+fn calculate_area(rectangle: &Rectangle) -> u32 {
+    rectangle.width * rectangle.height
+}
+
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32
+}
+
 
 fn main() {
-    // "!" is a macro, 
-    // which is used to write other code
-    // AKA meta-programming.
-    
+    let mut user = User {
+        active: true,
+        username: String::from("yee"),
+        password: String::from("yee"),
+        sign_in_count: 28,
+    };
+    let username = String::from("yeeeee");
+    let password = String::from("cow");
+    let mut new_user = build_user(username, password);
 
-    ownership::ownership();
-    println!("Square output: {}", variable_scope::square(2));
-    variable_scope::strings_heap();
-    let yee = 987;
-    // Even though we updated the 
-    // value inside of stack_fn, because it is a primitive,
-    // it is stored on the stack. Thus, once it goes out of scope,
-    // the local instance is deleted.
-    // Only objects in the stack are maintained until the owner 
-    // goes out of scope.
-    ownership::stack_fn(yee);
-    println!("Yee: {yee}");
+    let user_3 = User {
+        password: String::from("pasword"),
+        ..user
+    };
 
-    let mut numbers = vec![1, 2, 3, 4];
-    
-    // Need to pass by reference
-    // &: Ownership will be maintained by "vector" 
-    // inside stack_fn_vec
-    // mut: Enable updating the vector
-    // "&mut" - Pass in a mutable reference.
-    ownership::stack_fn_vec(&mut numbers);
-    println!("numbers: {:?}", numbers);
+    let rect = Rectangle {width: 10, height: 20};
+    let area = calculate_area(&rect);
+    println!("Area: {area}");
+    println!("Rectangle: {:?}", rect);
 
-    let mut vec1 = vec!{1, 2, 3};
-    // Correct syntax for mutable reference
-    let ref1 = &mut vec1;
-    ref1.push(4);
-    println!("vec1: {:?}", vec1);
 
-    // let s1 = String::from("yeeee");
-    // // s2 now has the pointer to "yeeee" in the heap. s1 is dropped from the stack.
-    // let s2 = s1;
-    // // This will raise an exception
-    // println!("s1: {s1}")
+   // println!("Username: {user.username}, password: {user.password}");
 
 }
-
