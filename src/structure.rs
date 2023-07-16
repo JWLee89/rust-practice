@@ -14,6 +14,18 @@ impl Person {
     }
 }
 
+// TODO inherit from person
+pub struct User {
+    username: String,
+    password: String
+}
+
+impl User {
+    fn login(&self, username: String, password: String) -> bool {
+        self.username == username && self.password == password
+    }
+}
+
 
 pub(crate) fn test() {
     println!("The values are {}", "nam")
