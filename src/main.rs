@@ -1,75 +1,24 @@
-/***
- * 
- * In this exercise, you'll implement an iterator that returns equal items in a sequence grouped in vectors, such as:
- * Input: [ 1, 1, 2, 1, 3, 3 ]
- * Output: [ [1, 1], [2], [1], [3, 3] ]
- */
-use std::fmt::Debug;
+use std::collections::HashMap;
 
-struct Groups<T> {
-    inner: Vec<T>,
-}
-
-impl<T> Groups<T> {
-    fn new(inner: Vec<T>) -> Self {
-	    Groups { inner }
+pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+    let mut map: HashMap<i32, usize>= HashMap::with_capacity(nums.len());
+    for (i, &num) in nums.iter().enumerate() {
+        match map.get(&(target - num)) {
+            Some(old_value_index) => return vec![*old_value_index as i32, i as i32],
+            None => map.insert(num, i),
+        };
     }
+    unreachable!()
 }
 
-impl<T: PartialEq> Iterator for Groups<T> {
-    type Item = Vec<T>;
+fn main() {
+    let mut nums: HashMap<i32, i32> = HashMap::new();
+    let mut key = 2;
+    let mut value = 10;
+    let val = nums.raw_entry_mut(key);
 
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.inner.is_empty() {
-            return None;
-        }
-        let mut cursor = 1;
-        let first = &self.inner[0];
-        for element in &self.inner[1..] {
-            if element == first {
-                cursor += 1;
-            } else {
-                break;
-            }
-        }
-
-        // we use the `Vec::drain` to extract items up until the cursor
-        let items = self.inner.drain(0..cursor).collect();
-
-        // return the extracted items
-        Some(items)
+    for (key, value) in nums.iter() {
+        println!("Key: {key}, value: {value}");
     }
+
 }
-
-
- fn main() {
-    let data = vec![4, 1, 1, 2, 1, 3, 3, -2, -2, -2, 5, 5];
-    // groups:     |->|---->|->|->|--->|----------->|--->|
-    assert_eq!(
-	    Groups::new(data).into_iter().collect::<Vec<Vec<_>>>(),
-	    vec![
-	        vec![4],
-    	    vec![1, 1],
-	        vec![2],
-    	    vec![1],
-	        vec![3, 3],
-	        vec![-2, -2, -2],
-    	    vec![5, 5],
-	    ]
-    );
-
-    let data2 = vec![1, 2, 2, 1, 1, 2, 2, 3, 4, 4, 3];
-    // groups:      |->|---->|---->|----|->|----->|->|
-    assert_eq!(
-	    Groups::new(data2).into_iter().collect::<Vec<Vec<_>>>(),
-	    vec![
-	        vec![1],
-    	    vec![2, 2],
-	        vec![1, 1],
-	        vec![2, 2],
-    	    vec![3],
-	        vec![4, 4],
-	        vec![3],
-	    ]
-    )
- }
