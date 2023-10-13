@@ -24,4 +24,13 @@ pub fn basic() {
      // mutable and immutable references since ref1 and 2
      // are no longer in scope
      let ref3 = &mut subset;
+
+     // Data should not change when immutable references are in scope
+     let mut heap_num = vec![1, 2, 3];
+     let ref1 = &heap_num;
+     let ref2 = &heap_num;
+
+     // Cannot borrow `heap_num` as mutable because it is also borrowed as immutable
+     heap_num.push(68);
+     println!("ref1: {:?}, ref2: {:?}", ref1, ref2);
 }
