@@ -12,6 +12,27 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     unreachable!()
 }
 
+struct Person {
+    name: String,
+    age: u8,
+    country: String,
+}
+
+trait GeneralInfo {
+    fn info(&self) -> (&str, u8);
+    fn country(&self) -> &str;
+}
+
+impl GeneralInfo for Person {
+    fn info(&self) -> (&str, u8) {
+        (&self.name, self.age)
+    }
+
+    fn country(&self) -> &str {
+        &self.country
+    }
+}
+
 fn main() {
     dummy_projects::bank::yee();
     // 
@@ -24,6 +45,15 @@ fn main() {
     if num > 1 {
         println!("num greater than 1: {}", num);
     }
+
+    let p1 = Person{
+        name: String::from("Yee"),
+        age: 8,
+        country: String::from("China"),
+    };
+
+    let info = p1.info();
+    println!("Info is: {:?}", info);
 
 
     match num {
