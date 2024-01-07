@@ -33,41 +33,28 @@ impl GeneralInfo for Person {
     }
 }
 
+pub fn square<T>(x: T) -> T 
+    where T: std::ops::Mul<Output = T> + Copy{
+    x * x
+}
+
+struct Point<T, U> {
+    x: T,
+    y: U
+}
+
+impl <T, U> Point <T, U> {
+    fn new(x: T, y: U) -> Self {
+        Point { x, y }
+    }
+}
+
+impl Point<i32, i32> {
+    fn print(&self) {
+        println!("The values of the coordinates are: {} and {}", self.x, self.y);
+    }
+}
+
 fn main() {
-    dummy_projects::bank::yee();
-    // 
-    let mut num = String::new();
-    let yee = std::io::stdin()
-        .read_line(&mut num)
-        .expect("Invalid input");
-
-    let num: i32 = num.trim().parse().expect("Invalid input. Should be a number");
-    if num > 1 {
-        println!("num greater than 1: {}", num);
-    }
-
-    let p1 = Person{
-        name: String::from("Yee"),
-        age: 8,
-        country: String::from("China"),
-    };
-
-    let info = p1.info();
-    println!("Info is: {:?}", info);
-
-
-    match num {
-        1 => {
-            println!("Number is {}", num);
-        },
-        0|-1 => {
-            println!("Number is 0 or -1");
-        },
-        2..=100 => {
-            println!("Between 2 and 100");
-        },
-        _ => {
-            println!("Other");
-        }
-    }
+   
 }
