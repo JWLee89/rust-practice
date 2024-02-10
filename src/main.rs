@@ -1,23 +1,12 @@
-struct Square {
-    width: f32,
-}
-
-struct Rectangle {
-    width: f32,
-    height: f32,
-}
-
-trait Shape {
-    fn area(&self) -> f32;
-} 
-
-impl Shape for  Rectangle {
-    fn area(&self) -> f32 {
-        self.width * self.height
-    }
-}
 
 
 fn main() {
+
+    use rust_practice::Student;
+
+    // It should be set automatically
+    let std_1 = Student::new(String::from("John Doe")).unwrap_or_default();
+
+    println!("std 1 {:?}", std_1);
 
 }
